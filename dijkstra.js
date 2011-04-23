@@ -32,7 +32,7 @@ var dijkstra = {
     var predecessors = {/* node: predecessor, ... */};
 
     var sorter = function (a, b) {
-      parseFloat(a) - parseFloat(b);
+      return parseFloat(a) - parseFloat(b);
     };
 
     var add_to_open =  function (cost, v) {
