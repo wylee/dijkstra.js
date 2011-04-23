@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *****************************************************************************/
-util.NameSpace('dijkstra', {
+var dijkstra = {
   single_source_shortest_paths: function(graph, s, d) {
     // Costs of shortest paths from s to all nodes encountered
     var costs = {};
@@ -46,7 +46,10 @@ util.NameSpace('dijkstra', {
     while (open) {
       // In the nodes remaining in graph that have a known cost from s,
       // find the node, u, that currently has the shortest path from s.
-      keys = util.keys(open);
+      keys = [];
+      for (var key in open) {
+        keys.push(key);
+      }
       if (keys.length == 0) {
         // This means that open is empty, {}, so there's nowhere to go.
         break;
@@ -147,4 +150,4 @@ util.NameSpace('dijkstra', {
       throw new Error('Path finding error!');
     }
   }
-});
+};
