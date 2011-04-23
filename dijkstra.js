@@ -20,11 +20,7 @@
  * THE SOFTWARE.
  *****************************************************************************/
 util.NameSpace('dijkstra', {
-  infinity: 1000000000000,
-
-  single_source_shortest_paths: function(graph, s, d, infinity) {
-    infinity = infinity || dijkstra.infinity;
-
+  single_source_shortest_paths: function(graph, s, d) {
     // Costs of shortest paths from s to all nodes encountered
     var costs = {};
     costs[s] = 0;
