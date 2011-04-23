@@ -143,9 +143,6 @@ var dijkstra = {
       i: {f: 1, h: 1}
     };
     var path = dijkstra.find_path(graph, 'a', 'i');
-    if (console && console.debug) {
-      console.debug(path);
-    }
     if (path.join() !== ['a', 'd', 'e', 'f', 'i'].join()) {
       throw new Error('Path finding error!');
     }
