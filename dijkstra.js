@@ -62,7 +62,7 @@ var dijkstra = {
         // Get the cost of the edge running from u to v.
         cost_of_e = adjacent_nodes[v];
 
-        // Weight of s to u plus the cost of u to v across e--this is *a*
+        // Cost of s to u plus the cost of u to v across e--this is *a*
         // cost from s to v that may or may not be less than the current
         // known cost to v.
         cost_of_s_to_u_plus_cost_of_e = cost_of_s_to_u + cost_of_e;
