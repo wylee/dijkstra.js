@@ -156,4 +156,3 @@ var dijkstra = {
     }
   }
 };
-dijkstra.test();
