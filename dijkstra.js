@@ -80,7 +80,7 @@ var dijkstra = {
         }
 
         // If a destination node was specified and we reached it, we're done.
-        if (v == d) {
+        if (v === d) {
           open = null;
           break;
         }
