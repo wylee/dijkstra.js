@@ -93,7 +93,7 @@ var dijkstra = {
         // cost of u to v across e), update v's cost in the cost list and
         // update v's predecessor in the predecessor list (it's now u).
         cost_of_s_to_v = costs[v];
-        first_visit = typeof(costs[v]) == 'undefined';
+        first_visit = (typeof costs[v] === 'undefined');
         if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
           costs[v] = cost_of_s_to_u_plus_cost_of_e;
           add_to_open(cost_of_s_to_u_plus_cost_of_e, v);
@@ -108,7 +108,7 @@ var dijkstra = {
       }
     }
 
-    if (typeof(costs[d]) == 'undefined') {
+    if (typeof costs[d] === 'undefined') {
       var msg = ['Could not find a path from ', s, ' to ', d, '.'].join('');
       throw new Error(msg);
     }
@@ -156,3 +156,4 @@ var dijkstra = {
     }
   }
 };
+dijkstra.test();
