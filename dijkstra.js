@@ -26,25 +26,13 @@ var dijkstra = {
     costs[s] = 0;
 
     // cost => [bucket of nodes with cost from s]
-    var open = {'0': [s]};
+    var open = dijkstra.PriorityQueue.make();
+    open.push(s, 0);
 
     // Predecessor of each node that has been encountered
     var predecessors = {/* node: predecessor, ... */};
 
-    var sorter = function (a, b) {
-      return parseFloat(a) - parseFloat(b);
-    };
-
-    var add_to_open =  function (cost, v) {
-      var key = '' + cost;
-      open[key] = open[key] || [];
-      open[key].push(v);
-    };
-
-    var keys,
-        key,
-        bucket,
-        closest,
+    var closest,
         cost_of_s_to_u, u,
         adjacent_nodes,
         cost_of_e,
@@ -54,24 +42,9 @@ var dijkstra = {
     while (open) {
       // In the nodes remaining in graph that have a known cost from s,
       // find the node, u, that currently has the shortest path from s.
-      keys = [];
-      for (var key in open) {
-        keys.push(key);
-      }
-      if (keys.length == 0) {
-        // This means that open is empty, {}, so there's nowhere to go.
-        break;
-      }
-      key = keys.sort(sorter)[0];
-      bucket = open[key];
-      u = bucket.shift();
-
-      if (bucket.length == 0) {
-        delete open[key];
-      }
-
-      // Current cost of path from s to u.
-      cost_of_s_to_u = parseFloat(key);
+      var closest = open.pop();
+      u = closest.value;
+      cost_of_s_to_u = closest.cost;
 
       // Get nodes adjacent to u...
       adjacent_nodes = graph[u] || {};
@@ -96,7 +69,7 @@ var dijkstra = {
         first_visit = (typeof costs[v] === 'undefined');
         if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
           costs[v] = cost_of_s_to_u_plus_cost_of_e;
-          add_to_open(cost_of_s_to_u_plus_cost_of_e, v);
+          open.push(v, cost_of_s_to_u_plus_cost_of_e);
           predecessors[v] = u;
         }
 
@@ -133,6 +106,45 @@ var dijkstra = {
     var predecessors = dijkstra.single_source_shortest_paths(graph, s, d);
     return dijkstra.extract_shortest_path_from_predecessor_list(
       predecessors, d);
+  },
+
+  /**
+   * A very naive priority queue implementation.
+   */
+  PriorityQueue: {
+    make: function (opts) {
+      var T = dijkstra.PriorityQueue,
+          t = {},
+          opts = opts || {},
+          key;
+      for (key in T) {
+        t[key] = T[key];
+      }
+      t.queue = [];
+      t.sorter = opts.sorter || T.default_sorter;
+      return t;
+    },
+
+    default_sorter: function (a, b) {
+      return a.cost - b.cost;
+    },
+
+    /**
+     * Add a new item to the queue and ensure the highest priority element
+     * is at the front of the queue.
+     */
+    push: function (value, cost) {
+      var item = {value: value, cost: cost};
+      this.queue.push(item);
+      this.queue.sort(this.sorter);
+    },
+
+    /**
+     * Return the highest priority element in the queue.
+     */
+    pop: function () {
+      return this.queue.shift();
+    }
   },
 
   test: function() {
