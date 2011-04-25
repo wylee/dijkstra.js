@@ -41,8 +41,16 @@ var dijkstra = {
       open[key].push(v);
     };
 
-    var keys, key, bucket, closest, w_of_s_to_u, u, adjacent_nodes, w_of_e;
-    var w_of_s_to_u_plus_w_of_e, w_of_s_to_v, first_visit;
+    var keys,
+        key,
+        bucket,
+        closest,
+        w_of_s_to_u, u,
+        adjacent_nodes,
+        w_of_e,
+        w_of_s_to_u_plus_w_of_e,
+        w_of_s_to_v,
+        first_visit;
     while (open) {
       // In the nodes remaining in graph that have a known cost from s,
       // find the node, u, that currently has the shortest path from s.
