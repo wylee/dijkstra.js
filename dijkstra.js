@@ -45,11 +45,11 @@ var dijkstra = {
         key,
         bucket,
         closest,
-        w_of_s_to_u, u,
+        cost_of_s_to_u, u,
         adjacent_nodes,
-        w_of_e,
-        w_of_s_to_u_plus_w_of_e,
-        w_of_s_to_v,
+        cost_of_e,
+        cost_of_s_to_u_plus_cost_of_e,
+        cost_of_s_to_v,
         first_visit;
     while (open) {
       // In the nodes remaining in graph that have a known cost from s,
@@ -71,7 +71,7 @@ var dijkstra = {
       }
 
       // Current cost of path from s to u.
-      w_of_s_to_u = parseFloat(key);
+      cost_of_s_to_u = parseFloat(key);
 
       // Get nodes adjacent to u...
       adjacent_nodes = graph[u] || {};
@@ -81,22 +81,22 @@ var dijkstra = {
       // necessary. v is the node across the current edge from u.
       for (var v in adjacent_nodes) {
         // Get the cost of the edge running from u to v.
-        w_of_e = adjacent_nodes[v];
+        cost_of_e = adjacent_nodes[v];
 
         // Weight of s to u plus the cost of u to v across e--this is *a*
         // cost from s to v that may or may not be less than the current
         // known cost to v.
-        w_of_s_to_u_plus_w_of_e = w_of_s_to_u + w_of_e;
+        cost_of_s_to_u_plus_cost_of_e = cost_of_s_to_u + cost_of_e;
 
         // If we haven't visited v yet OR if the current known cost from s to
         // v is greater than the new cost we just found (cost of s to u plus
         // cost of u to v across e), update v's cost in the cost list and
         // update v's predecessor in the predecessor list (it's now u).
-        w_of_s_to_v = costs[v];
+        cost_of_s_to_v = costs[v];
         first_visit = typeof(costs[v]) == 'undefined';
-        if (first_visit || w_of_s_to_v > w_of_s_to_u_plus_w_of_e) {
-          costs[v] = w_of_s_to_u_plus_w_of_e;
-          add_to_open(w_of_s_to_u_plus_w_of_e, v);
+        if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
+          costs[v] = cost_of_s_to_u_plus_cost_of_e;
+          add_to_open(cost_of_s_to_u_plus_cost_of_e, v);
           predecessors[v] = u;
         }
 
