@@ -21,19 +21,25 @@
  *****************************************************************************/
 var dijkstra = {
   single_source_shortest_paths: function(graph, s, d) {
-    // Costs of shortest paths from s to all nodes encountered
+    // Predecessor map for each node that has been encountered.
+    // node ID => predecessor node ID
+    var predecessors = {};
+
+    // Costs of shortest paths from s to all nodes encountered.
+    // node ID => cost
     var costs = {};
     costs[s] = 0;
 
-    // cost => [bucket of nodes with cost from s]
+    // Costs of shortest paths from s to all nodes encountered; differs from
+    // `costs` in that it provides easy access to the node that currently has
+    // the known shortest path from s.
+    // XXX: Do we actually need both `costs` and `open`?
     var open = dijkstra.PriorityQueue.make();
     open.push(s, 0);
 
-    // Predecessor of each node that has been encountered
-    var predecessors = {/* node: predecessor, ... */};
-
     var closest,
-        cost_of_s_to_u, u,
+        u,
+        cost_of_s_to_u,
         adjacent_nodes,
         cost_of_e,
         cost_of_s_to_u_plus_cost_of_e,
@@ -42,7 +48,7 @@ var dijkstra = {
     while (open) {
       // In the nodes remaining in graph that have a known cost from s,
       // find the node, u, that currently has the shortest path from s.
-      var closest = open.pop();
+      closest = open.pop();
       u = closest.value;
       cost_of_s_to_u = closest.cost;
 
