@@ -154,26 +154,11 @@ var dijkstra = {
     empty: function () {
       return this.queue.length === 0;
     }
-  },
-
-  test: function() {
-    // A B C
-    // D E F
-    // G H I
-    graph = {
-      a: {b: 10, d: 1},
-      b: {a: 1, c: 1, e: 1},
-      c: {b: 1, f: 1},
-      d: {a: 1, e: 1, g: 1},
-      e: {b: 1, d: 1, f: 1, h: 1},
-      f: {c: 1, e: 1, i: 1},
-      g: {d: 1, h: 1},
-      h: {e: 1, g: 1, i: 1},
-      i: {f: 1, h: 1}
-    };
-    var path = dijkstra.find_path(graph, 'a', 'i');
-    if (path.join() !== ['a', 'd', 'e', 'f', 'i'].join()) {
-      throw new Error('Path finding error!');
-    }
   }
 };
+
+
+// node.js module exports
+if (typeof module !== 'undefined') {
+  module.exports = dijkstra;
+}
