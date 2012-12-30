@@ -45,7 +45,7 @@ var dijkstra = {
         cost_of_s_to_u_plus_cost_of_e,
         cost_of_s_to_v,
         first_visit;
-    while (open) {
+    while (!open.empty()) {
       // In the nodes remaining in graph that have a known cost from s,
       // find the node, u, that currently has the shortest path from s.
       closest = open.pop();
@@ -81,7 +81,6 @@ var dijkstra = {
 
         // If a destination node was specified and we reached it, we're done.
         if (v === d) {
-          open = null;
           break;
         }
       }
@@ -150,6 +149,10 @@ var dijkstra = {
      */
     pop: function () {
       return this.queue.shift();
+    },
+
+    empty: function () {
+      return this.queue.length === 0;
     }
   },
 
