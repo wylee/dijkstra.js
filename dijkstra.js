@@ -86,7 +86,7 @@ var dijkstra = {
       }
     }
 
-    if (typeof costs[d] === 'undefined') {
+    if (typeof d !== 'undefined' && typeof costs[d] === 'undefined') {
       var msg = ['Could not find a path from ', s, ' to ', d, '.'].join('');
       throw new Error(msg);
     }
