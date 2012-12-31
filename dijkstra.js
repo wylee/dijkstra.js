@@ -78,11 +78,6 @@ var dijkstra = {
           open.push(v, cost_of_s_to_u_plus_cost_of_e);
           predecessors[v] = u;
         }
-
-        // If a destination node was specified and we reached it, we're done.
-        if (v === d) {
-          break;
-        }
       }
     }
 
