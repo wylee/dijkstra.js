@@ -38,7 +38,7 @@ var dijkstra = {
     open.push(s, 0);
 
     var closest,
-        u,
+        u, v,
         cost_of_s_to_u,
         adjacent_nodes,
         cost_of_e,
@@ -58,7 +58,7 @@ var dijkstra = {
       // ...and explore the edges that connect u to those nodes, updating
       // the cost of the shortest paths to any or all of those nodes as
       // necessary. v is the node across the current edge from u.
-      for (var v in adjacent_nodes) {
+      for (v in adjacent_nodes) {
         // Get the cost of the edge running from u to v.
         cost_of_e = adjacent_nodes[v];
 
